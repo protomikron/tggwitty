@@ -13,9 +13,9 @@ should work.
 
 # FAQ
 
-Q: Why?
-A: Why not? But seriously - TGGW's native ASCII art maps quite well to Linux
-   terminal capabilities (it's a `cmd.exe` terminal application after all).
+- Q: Why?
+- A: Why not? But seriously - TGGW's native ASCII art maps quite well to Linux
+  terminal capabilities (it's a `cmd.exe` terminal application after all).
 
 # License
 
