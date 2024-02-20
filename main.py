@@ -1,6 +1,7 @@
 import subprocess as sp
 import curses
 import random
+import argparse
 import numpy as np
 import os
 import json
@@ -127,7 +128,7 @@ def numpy_array_to_char(arr, char_map):
     char_cache[h] = (char, non_black_pixel_coord)
     return (char, non_black_pixel_coord)
 
-def loop(stdscr, config):
+def loop(stdscr, config, unique_frames_dir):
     char_map = {}
 
     curses.start_color()
@@ -163,6 +164,9 @@ def loop(stdscr, config):
     height = geom.height
 
     color_map = init_colors()
+
+    frame_idx = 0
+    last_frame = np.zeros((config['window_size'], config['window_size'], 3), np.uint8)
 
     while True:
         start_frame_time = dt.datetime.now()
@@ -218,6 +222,12 @@ def loop(stdscr, config):
         image_rgb = np.array(image)
         image_arr = (~np.all(image_rgb == 0, axis=-1)).astype(np.uint8)
 
+        if (image_rgb != last_frame).any():
+            last_frame = image_rgb
+            image.save(f'{unique_frames_dir}/frame_{frame_idx}.png')
+
+        frame_idx += 1
+
         for row in range(0, rows):
             for col in range(0, cols):
                 x = col * char_width + top_left_offset_x
@@ -244,20 +254,23 @@ def loop(stdscr, config):
 
     disp.close()
 
-def main(config_path):
-    with open(config_path, 'r') as config_file:
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Tggwitty: The Ground Gives Way in tty')
+    parser.add_argument('config', type=str, help='path to the config.json file')
+    parser.add_argument('--write-unique-frames', type=str, dest='unique_frames_dir', help='Directory to write unique frames', default=None)
+
+    args = parser.parse_args()
+
+    with open(args.config, 'r') as config_file:
         config = json.load(config_file)
 
     xvfb_process, wine_process = start_virtual_display_and_application(config)
 
-    curses.wrapper(loop, config)
+    if args.unique_frames_dir:
+        os.makedirs(args.unique_frames_dir, exist_ok=True)
+
+    curses.wrapper(loop, config, args.unique_frames_dir)
 
     wine_process.terminate()
     xvfb_process.terminate()
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print('Usage: python script.py <config.json>')
-        sys.exit(1)
-
-    main(sys.argv[1])
