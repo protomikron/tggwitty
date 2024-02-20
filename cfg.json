@@ -1,0 +1,8 @@
+{
+    "window_size": 750,
+    "corner_offset_x": 15,
+    "corner_offset_y": 23,
+    "font_height": 16,
+    "font_width": 8,
+    "init_sleep_seconds": 1.0
+}

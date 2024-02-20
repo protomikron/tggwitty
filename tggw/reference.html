@@ -1,0 +1,265 @@
+<html>
+<h1>Reference Document (v2.6)</h1>
+<p>This is a reference document for all effects available in v2.6.*. The best way of using it is to search (ctrl+f in most browsers) for the effect you are looking for. In future releases this list will hopefully exist in-game.</p>
+<h2>Table of Contents</h2>
+<p><a href="#derived attributes">Derived attributes</a><br />
+<a href="#attacks">Attacks</a><br />
+<a href="#attacks">Perception</a> (seeing and hearing)<br />
+<a href="#durations">Effect Durations</a><br />
+<a href="#effects">Effects</a></p>
+<hr />
+<p><a name="derived attributes"></a></p>
+<h3>Derived Attributes</h3>
+<h5>Thievery</h5>
+<p>Thievery is computed by: 5+vision-noise. Being confused induces a penalty of -2. Your effective chance to disarm traps, steal successfully and to use thief weapon is 10*thievery% under normal circumstances. However, this is scaled down when thievery is negative or over 10.</p>
+<h5>Avoid Spells</h5>
+<p>Your chance to avoid spells is calculated as follows:</p>
+<p>5*maxMp%</p>
+<p>As &#8220;spell&#8221; counts any monster attack labelled with &#8220;magic&#8221; and which has an Mp-cost. Monsters chance to avoid spells applies to your attacks from wands or rods.</p>
+<p>With the following special cases:</p>
+<ul>
+<li>If you are unaware of the monster that attacks you (i.e., it makes a surprise attack against you) this value is set to 0%</li>
+<li>Values over 90% will be altered. 100% becomes 91%, 110% becomes 92% and so forth. Values under 10% are not altered.</li>
+</ul>
+<hr />
+<h2>Attacks</h2>
+<p>There are three types of attacks: melee, missile and magic. Here are the rules for these types of attacks. Both for the player and monsters.</p>
+<h4>Melee</h4>
+<p>Melee (bump) attacks uses the &#8220;melee&#8221; attribute to determine its chance to hit. If it hits, the victim has &#8220;block&#8221; chance to block it. You can melee monsters even if you can&#8217;t see them, the same applies for monsters.</p>
+<h4>Missile</h4>
+<p>Missile attacks uses the &#8220;missile&#8221; attribute to determine its chance to hit. If it hits, the victim has &#8220;block&#8221; chance to block it. All missile attacks has a maximum range which can be seen by examining the monster (or the player). All missile attacks also have limited ammo which can also be seen by examining. You have to see a monster in order to make a missile attack against it, and vice versa for a monster.</p>
+<h4>Magic</h4>
+<p>Magic attacks always hit, but the victim gets &#8220;avoid spells&#8221; chance to completely neglect it. All magic attacks have a maximum range which can be seen when exploring the spell or attack. Most magic attacks consume Mp from the caster. For single target magic attacks you have to see the target to cast it and vice versa for monsters. Area attacks works in an area no matter if the target is seen or not. Magic attacks don&#8217;t work if the caster is &#8220;confused&#8221;.</p>
+<h4>Surprise</h4>
+<p>Any of the above can be a &#8220;surprise&#8221; attack. A surprise attack negates the possibility to block or avoid the attack. A player is surprised if an attack is made against him while in &#8220;exploring&#8221; mode.</p>
+<p>A monster is surprised by an attack if it is made when the monster is &#8220;unaware of you&#8221; (that is, it neither hears nor sees you).</p>
+<hr />
+<p><a name="perception"></a></p>
+<h3>Perception</h3>
+<p>In this section we describe what it means for monsters to see and hear you. Analoguous rules apply for you to see a monster.</p>
+<h4>Seeing</h4>
+<p>A monster can see you if:</p>
+<ul>
+<li>You are within &#8220;vision&#8221; squares of it and there&#8217;s nothing in the way, or</li>
+<li>if you are &#8220;in light&#8221; and nothing is in the way, or</li>
+<li>the monster have &#8220;infravision&#8221; and nothing is in the way</li>
+</ul>
+<p>Being &#8220;invisible&#8221; negates all the above, unless the monster has the effect &#8220;see invisible&#8221;.</p>
+<p>If a monster can see you it can:</p>
+<ul>
+<li>chase you.</li>
+<li>make any kind of attack on you (melee, missile, magic), targeted or area.</li>
+<li>make Attacks of Opportunity against you.</li>
+</ul>
+<h4>Hearing</h4>
+<p>A monster can hear you if:</p>
+<ul>
+<li>You are within your own &#8220;noise&#8221; squares of it and the monster is not in an isloated place (noise travels around corners and through doors etc). If the monster has &#8220;deep sleep&#8221; and is sleeping other rules apply.</li>
+</ul>
+<p>If a monster can hear you it:</p>
+<ul>
+<li>can chase you.</li>
+<li>can make a melee attack against you.</li>
+<li>wakes up if it was sleeping.</li>
+</ul>
+<hr />
+<p><a name="durations"></a></p>
+<h3>Effect Durations</h3>
+<p>Whenever an effect is displayed in the game it is shown with a duration indicating how long it will last:</p>
+<ul>
+<li>Prm. Permanent. This effect will stay the entire game unless something explicitly changes it.</li>
+<li>Eqp. Equipment. This effect comes from your equipment and will stay until you unequip the item that causes it.</li>
+<li>Tmp. Temporary. This effect lasts until you rest or otherwise restore temporary effects.</li>
+<li>Ctx. Context. This effect comes from the specific context you are in, this is usually the floor, but can also be from surroundings (a light source nearby or from walls if you have open/closed combat). It will disappear when you move to a square that doesn&#8217;t cause the effect.</li>
+<li>Ins. Instant. This is an instant effect that won&#8217;t linger.</li>
+</ul>
+<hr />
+<p><a name="effects"></a></p>
+<h2>Effects</h2>
+<p>These effects are described in terms of &#8220;you&#8221;, the player. However, most of the effects can apply to monsters as well. The (x) next to an effect indicates its level.</p>
+<p><em>Instant</em>. This effect will have an effect immediately and then disappear. Everything which is not instant counts as a <em>status effect</em>.</p>
+<p><em>Binary</em>. This effect is either on or off, it cannot have different levels.</p>
+<p><em>Percentage</em>. This effect is expressed as a percentage rather than a level.</p>
+<p><em>Player only</em>. Only the player may have this effect, or this effect may only be applied to the player.</p>
+<p><em>Monster only</em>. Only monsters may have this effect.</p>
+<h3>Acid (x)</h3>
+<p><em>Instant</em>. Decreases hp by x (possibly modified by <strong>resist acid</strong> or <strong>weak: acid</strong>). In addition, if you armour attribute is non-zero it will decrease by 5*x% temporarily (where x has been modified by resistance or weakness).</p>
+<h3>Aggravation (x)</h3>
+<p><em>Player only</em>. Spawns a random number (between 0 and x) of new monsters when you rest or descend to a previously unvisited level.</p>
+<h3>Alleviate Poison (x)</h3>
+<p><em>Instant</em>. Decreases <strong>poison</strong> level by x.</p>
+<h3>Bleeding</h3>
+<p><em>Binary</em>. You are unable to heal by any means.</p>
+<h3>Bloodlust (x%)</h3>
+<p><em>Percentage. Player only. </em>Whenever you see a monster die, there is a x% chance to heal 1hp per max-hp of the monster that died.</p>
+<h3>Can&#8217;t Move</h3>
+<p><em>Binary</em>. <em>Monsters only. </em>The monster cannot move (but can still attack).</p>
+<h3>Can&#8217;t Push Others</h3>
+<p><em>Binary</em>. <em>Monsters only. </em>The monster cannot go past other monsters. Unconscious or not.</p>
+<h3>Can&#8217;t Use Doors</h3>
+<p><em>Binary</em>. <em>Monsters only. </em>The monster cannot open or close doors.</p>
+<h3>Closed Combat</h3>
+<p><em>Binary</em>. You get a +10% bonus to melee if you are standing beside a wall, or a +30% bonus if you are standing next to two walls or more.</p>
+<h3>Cold (x)</h3>
+<p><em>Instant</em>. Decreases hp by x (possibly modified by <strong>resist cold</strong> or <strong>weak: cold</strong>). There is also a x*10% chance that you get a temporary decrease in your speed (where x is modified by resistance or weakness).</p>
+<h3>Confused</h3>
+<p><em>Binary</em>. When confused you occasionally take a misstep or swap places with a monster. You are also unable to use any form of magic (wands, rods or scrolls for the player, attacks labelled &#8220;magic&#8221; for monsters). In addition you take a -20% penalty to avoid traps. <em>Player only:</em> You cannot use tools or identify items and it is harder to place traps.</p>
+<h3>Cure [Status]</h3>
+<p><em>Instant</em>. Removes all temporary sources of [status].</p>
+<h3>Cure Mutation</h3>
+<p><em>Instant</em>. <em>Player only</em>. Restores all mutated body parts to normal.</p>
+<h3>Damage (x)</h3>
+<p><em>Instant</em>. Decreases Hp by x. Each point of damage has a y% chance of getting absorbed, where y is your armour attribute.</p>
+<h3>Decrease [Attribute] (x)</h3>
+<p>Decreases [attribute] by x points.</p>
+<h3>Deep Sleeper</h3>
+<p><em>Binary. Monsters only</em>. If this monster is sleeping, you can move two squares closer than normally in terms of your noise level before it wakes up. Example: if you have 5 noise, it doesn&#8217;t wake up until you are within 3 squares.</p>
+<h3>Destroy Weapon</h3>
+<p><em>instant</em>. <em>Player only</em>. Instantly destroys your wielded weapon. If you are dual wielding, both weapons will be destroyed.</p>
+<h3>Detect [thing]</h3>
+<p><em>Binary. Player Only</em>. Makes you see [thing] on the map even if it is not in your field of vision. This does not mean you can interact with it however.</p>
+<h3>Detect Traps</h3>
+<p><em>Binary. Player Only</em>. Makes you see traps as a blinking &#8216;6&#8217;. You also get a +20% bonus to avoiding traps.</p>
+<h3>Disease</h3>
+<p><em>Binary</em>. Prevents Hp-regeneration on rest. <em>Monster only</em>: monsters flee earlier when diseased.</p>
+<h3>Disenchant</h3>
+<p><em>Instant</em>. Disenchants (i.e., removes the enchantment from) <em>all</em> your equipped items.</p>
+<h3>Drain Magic (x)</h3>
+<p><em>Instant</em>. Decreases Mp by x points. Is the opposite of <strong>magic points</strong>.</p>
+<h3>Dual Wield</h3>
+<p><em>Binary</em>. You make two melee attacks per turn instead of one.</p>
+<h3>Electricity (Elec) (x)</h3>
+<p><em>Instant</em>. Decreases hp and mp by x points (modified by <strong>resist elec</strong> or <strong>weak: elec</strong>)</p>
+<h3>Enchant Weapon</h3>
+<p><em>Instant</em>. <em>Player only</em>. Adds a random enchantment to your wielded melee weapon. If you have no melee weapon equipped, nothing happens.</p>
+<h3>Energy (x)</h3>
+<p><em>Instant</em>. <em>Player only</em>. Replenish your Ep by x points up to maximum 10. Is the opposite of <strong>Fatigue</strong>. Also cures <strong>exhaustion</strong>.</p>
+<h3>Exhausted</h3>
+<p><em>Binary</em>. <em>Player only</em>. You take damage instead of losing Ep when <strong>fatigued</strong>.</p>
+<h3>Fast</h3>
+<p><em>Binary</em>. Can act more often than <strong>very slow</strong>, <strong>slow</strong> and non-fast monsters. Acts less often than <strong>very fast</strong> monsters.</p>
+<h3>Fatigue (x)</h3>
+<p><em>Instant</em>. <em>Player only</em>. Lose x points of Ep to a minimum of 0. If Ep is taken to 0, you will get the status <strong>Exhausted</strong>. If exhausted you will instead lose Hp instead of Ep when fatigued.</p>
+<h3>Fearless</h3>
+<p><em>Binary. Monsters only. </em>This monster cannot be afraid and will never flee.</p>
+<h3>Fire (x)</h3>
+<p><em>Instant</em>. Decreases Hp by x points (modified by <strong>resist fire</strong> or <strong>weak: fire</strong>). <em>Player only</em>: There is also a x*5% chance that a random food item in your inventory gets grilled (where x has been modified by resistance or weakness).</p>
+<h3>Flanked (-x% to block)</h3>
+<p><em>Player only</em>. This status is always contextual and you get it whenever there are more than one monster adjacent to you. For each adjacent monster except the first you get a -20% penalty to block. This simulates that it is hard to block from several sides at once.</p>
+<h3>Flying</h3>
+<p><em>Binary</em>. You cannot activate traps on the floor and some other features on the floor. You are also unaffected by most floor types, especially dangerous ones such as water and lava. You are doubly effected by <strong>knockback</strong> however.</p>
+<h3>Frail</h3>
+<p><em>Binary</em>. <em>Monster only</em>. A frail monster can be killed even by <strong>non-lethal damage</strong>.</p>
+<h3>Food (x)</h3>
+<p><em>Instant</em>. Increases your food attribute by x up to a maximum of 5. Monsters instead get their Hp increased by x points and gets temporarily neutral.</p>
+<h3>Heal (x)</h3>
+<p><em>Instant</em>. Increases Hp by x up to a maximum of max-hp.</p>
+<h3>Hunger (x)</h3>
+<p><em>Instant</em>. Decreases your food attribute by x to a minimum of 0. Monsters are instead damaged by x hp.</p>
+<h3>Identify Inventory</h3>
+<p><em>Instant</em>. <em>Player only. </em>Identifies all your possessions and learn all enchantments in your inventory.</p>
+<h3>Immunity to [effect]</h3>
+<p><em>Binary</em>. Neglects all aspects of [effect].</p>
+<h3>Incapacitated</h3>
+<p>See <strong>Unconscious</strong>. Applies to inanimate monsters.</p>
+<h3>Increase [attribute] (x)</h3>
+<p>Increases [attribute] by x points.</p>
+<h3>Infravision</h3>
+<p><em>Binary</em>. Makes you able to see (and target) living monsters (unless they are cold-based) and fire-based monsters outside of your vision if there are no obstacles. Effectively making your vision attribute infinite when it comes to seeing living monsters.</p>
+<h3>In Light</h3>
+<p><em>Binary</em>. You are visible to all monsters (as if all monsters had <strong>infravision</strong>). <em>Player only</em>: If the effect is contextual (i.e., comes from the floor), you cannot rest while having this status.</p>
+<h3>Invisible</h3>
+<p><em>Binary</em>. You cannot be seen or targeted by a monster unless it can <strong>see invisible</strong>. You can still be heard though. If you happen to <strong>detect</strong> an invisible monster you can see and target it as normal.</p>
+<h3>Knockback (x)</h3>
+<p><em>Instant</em>. Moves away you x squares in one direction, decreasing x by one per square. If there is a wall in your path, you will take damage equal to the remaining x. If there is a monster on your path, the remaining x will be transfered to that monster.</p>
+<p>If you are <strong>flying</strong>, this effect will have its level effectively doubled (x*2). The knockback effect is completely neglected by the status <strong>resist knockback</strong>.</p>
+<h3>Make Pit</h3>
+<p><em>Instant</em>. Makes a pit to the next floor if open. Otherwise it makes a water filled pit.</p>
+<h3>Magic Points (x)</h3>
+<p><em>Instant</em>. Increases Mp by x points up to max-mp. Is the opposite of <strong>drain magic</strong>.</p>
+<h3>Mapping</h3>
+<p><em>Instant</em>. <em>Player only</em>. Maps the current level so that you can see all non-floor features.</p>
+<h3>Martial Combo (x)</h3>
+<p><em>Player only</em>. If you are equipped with a martial weapon, you automatically attack repeatedly up to x times or until an attack misses or is blocked. If x is zero or less you cannot do attacks with martial attacks.</p>
+<h3>Mutation</h3>
+<p><em>Instant</em>. <em>Player only</em>. Adds one or more random body parts to your equipment, unequipping or destroying whatever was there in the process. The body part can not be unequipped and nothing can be equipped in place of the body part.</p>
+<h3>Nausea</h3>
+<p><em>Binary. Player only. </em>You cannot consume anything (food or potions) unless you are starving (food = 0) and the thing you consume give <strong>food</strong>.</p>
+<h3>Never Sleeps</h3>
+<p><em>Binary. Monsters only</em>. This monster cannot sleep and consequently don&#8217;t recover or having it&#8217;s temporary effects removed when you rest.</p>
+<h3>Neutral</h3>
+<p><em>Binary. Monsters only</em>. This monster won&#8217;t attack you and bumping it switches places with it. Any hostile act towards it causes <strong>Aggravation(2) </strong>to you.</p>
+<h3>Non-lethal Damage (x)</h3>
+<p><em>instant</em>. <em>Monsters only</em>. Decreases hp by x. Each point of damage has a y% chance of getting absorbed, where y is the monster&#8217;s armour attribute.This damage type can not kill a monster unless it is <strong>frail</strong>. If a non-frail monster&#8217;s Hp drops to 0 from this damage type, it will instead become <strong>unconscious</strong>/<strong>incapacitated</strong>.</p>
+<h3>Open Combat</h3>
+<p><em>Binary</em>. You get a +10% bonus to your melee attribute if you have at least three non-wall squares adjacent, or a +20% bonus if you don&#8217;t stand beside any wall.</p>
+<h3>Overburdened</h3>
+<p><em>Binary. Player only.</em> Happens only when you have more than 20 items in your main inventory (not counting content of containers and bags). It makes you <strong>very slow</strong> and your melee and block attributes are 0.You cannot rest or use features (such as portals or stairs) while under this effect.</p>
+<p>This status will automatically be removed once your inventory is no longer overfull.</p>
+<h3>Phase Out</h3>
+<p><em>instant</em>. <em>Monsters only</em>. The monster moves to another dimension and out of the game forever.</p>
+<h3>Poison (x)</h3>
+<p>Slightly delayed damage. Poison acts randomly up to 5 times per turn (if you are very slow) or once per turn (if you are very fast). When poison acts your hp decreases by one (<strong>resist poison</strong>% to avoid) and your poison level (x) decreases by one (unless <strong>weak: poison</strong>%).</p>
+<h3>Rage</h3>
+<p>Gives a +50% bonus to your melee attribute as long as your hp is 4 or less.</p>
+<h3>Random Effect</h3>
+<p><em>instant</em>. Causes a random effect to happen.</p>
+<h3>Recharge Rods</h3>
+<p><em>instant</em>. <em>Player only</em>. Makes all rods in your inventory usable again even if they have been used.</p>
+<h3>Reputation</h3>
+<p><em>Player only</em>. Modifies your reputation with the Healer&#8217;s guild. Reputation points are used to use censers.</p>
+<h3>Resist [element] (x%)</h3>
+<p><em>Percentage</em>. When taking y damage from [element] , x% of y (rounded down) are absorbed (removed). The remainder of the rounding is added as a chance to absorb yet another point of damage.</p>
+<h3>Resist magic (x%)</h3>
+<p><em>Percentage</em>. When being targeted by a spell (a wand/rod if it is the player, or a an attack categorized as &#8220;magic&#8221; if it is a monster) there is x% chance of avoiding the effects entirely.</p>
+<h3>Resist Poison (x%)</h3>
+<p><em>Percentage</em>. Every time <strong>poison</strong> acts on you, there is a x% to not take damage.</p>
+<h3>Restore</h3>
+<p><em>instant</em>. Removes all temporary effects. <em>Player only</em>: It makes &#8220;once per day&#8221; wands usable even if they have been used.</p>
+<h3>Riposte</h3>
+<p><em>Binary. </em>Whenever you block an attack, you automatically make a melee attack against the attacker.</p>
+<h3>Rust Iron</h3>
+<p><em>instant</em>. <em>Player only</em>: Makes a random iron item from your equipment rusty. <em>Monster only</em>: Makes monsters made of iron unable to move (<strong>can&#8217;t move</strong> effect).</p>
+<h3>Shield Pummel</h3>
+<p><em>Binary. </em>Every time someone makes a melee attack against you that misses, you automatically push them back (<strong>knockback 2</strong>) with your shield.</p>
+<h3>Submerged</h3>
+<p><em>Binary.</em> You cannot take any other actions than to move. <em>Monsters only</em>: instantly kill the monster unless it has the effect <strong>Swims</strong>.</p>
+<h3>Surprise Damage (x)</h3>
+<p><em>instant</em>.Does <strong>damage (x) </strong>to a living character if it is unaware of the attacker (does not work on inanimate or undead monsters). If aware, this does nothing. <em>Player only</em>: you can not be killed by surprise damage alone.</p>
+<h3>Scare [Monster]</h3>
+<p><em>Binary. Player Only. </em>Makes all monsters of type [monster] afraid (and fleeing) whenever they see you.</p>
+<h3>See Invisible</h3>
+<p><em>Binary</em>. You can see (and therefore target) monsters even if they are <strong>invisible</strong>.</p>
+<h3>Silver Damage (x)</h3>
+<p><em>instant</em>. <em>Monsters only</em>. Decreases Hp by x if the monster is undead. Does nothing to living monsters.</p>
+<h3>Sleep</h3>
+<p><em>instant</em>. <em>Monsters only</em>. Makes the monster fall asleep unless it has the <strong>never sleeps</strong> status. The monster will wake up again according to the normal rules of waking up.</p>
+<h3>Slimy</h3>
+<p><em>Binary</em>. You leave a trace of slime on the floor. You cannot equip or unequip items. It can be cured by walking into deep water.</p>
+<h3>Slow</h3>
+<p><em>Binary</em>. Can act more often than <strong>very slow</strong> actors, but less often than non-slow, <strong>fast</strong> or <strong>very fast</strong> actors.</p>
+<h3>Spiked (x)</h3>
+<p>Every time an adjacent monster hits you in melee, it will take x points of <strong>damage</strong>.</p>
+<h3>Steal Gold (x)</h3>
+<p><em>instant</em>. If you are the victim you will lose x gold. If a humanoid monster is the victim, you will acquire x gold. It has no effect on non-humanoid monsters.</p>
+<h3>Summon Monster (x)</h3>
+<p><em>instant</em>. Summons a hostile monster that normally appears on dungeon floor x. x is a hidden value that is not displayed.</p>
+<h3>Swims</h3>
+<p><em>Binary</em>. <em>Monsters only</em>. This monster may move through water without taking damage.</p>
+<h3>Teleport (x)</h3>
+<p><em>instant</em>. Randomly teleports you at most x squares away.</p>
+<h3>Unconscious</h3>
+<p><em>Binary</em>. <em>Monsters only</em>. The monster cannot act in any way, it also cannot see or hear so it is always unaware of you. Moving into an unconscious monster will swap places with it. This is the same effect as <strong>incapacitated</strong>. Any hostile action against a living unconscious monster will cause <strong>Aggravation(2)</strong> to you.</p>
+<h3>Very Fast</h3>
+<p><em>Binary</em>. Can act more often than all but other very fast actors.<strong><br />
+</strong></p>
+<h3>Very Slow</h3>
+<p><em>Binary</em>. Can act less often than all but other very slow actors.<strong><br />
+</strong></p>
+<h3>Wake All</h3>
+<p><em>instant</em>. Wakes all sleeping monsters on the level.</p>
+<h3>Weak: [Element] (x%)</h3>
+<p><em>Percentage</em>. When you take y damage from [element], x% of y (rounded down) are added to the damage. The remainder of the rounding is added as a chance to take yet another point of damage over that.</p>
+<h3>Weak: Poison (x%)</h3>
+<p><em>Percentage</em>.Every time poison acts in your system, there is an x% risk of the poison level not reducing.</p>
+</html>
