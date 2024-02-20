@@ -109,27 +109,28 @@ def find_non_black_pixel(subset):
                 return (x, y)
     return (0, 0)
 
-def numpy_array_to_char2(arr, char_map):
+def numpy_array_to_char2(arr, char_map_rev):
     h = numpy_array_to_hash(arr)
 
     #XXX: why again here ... ?
-    if h in char_map:
-        return char_map[h]
+    if h in char_map_rev:
+        return char_map_rev[h]
 
     return '?',(0,0) #XXX?
 
 char_cache = {}
-def numpy_array_to_char(arr, char_map):
+def numpy_array_to_char(arr, char_map_rev):
     h = numpy_array_to_hash(arr)
     if h in char_cache:
         return char_cache[h]
     # Processing to determine char
-    (char, non_black_pixel_coord) = numpy_array_to_char2(arr, char_map)
+    (char, non_black_pixel_coord) = numpy_array_to_char2(arr, char_map_rev)
     char_cache[h] = (char, non_black_pixel_coord)
     return (char, non_black_pixel_coord)
 
 def loop(stdscr, config, unique_frames_dir):
     char_map = {}
+    char_map_rev = {}
 
     curses.start_color()
     curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
@@ -155,7 +156,8 @@ def loop(stdscr, config, unique_frames_dir):
     
         non_black_pixel_coord = find_non_black_pixel(subset)
 
-        char_map[numpy_array_to_hash(subset)] = (char, non_black_pixel_coord)
+        char_map[char] = subset
+        char_map_rev[numpy_array_to_hash(subset)] = (char, non_black_pixel_coord)
 
     disp = display.Display(':99')
     root = disp.screen().root
@@ -164,6 +166,8 @@ def loop(stdscr, config, unique_frames_dir):
     height = geom.height
 
     color_map = init_colors()
+
+    player_ch = char_map['@']
 
     frame_idx = 0
     last_frame = np.zeros((config['window_size'], config['window_size'], 3), np.uint8)
@@ -222,7 +226,7 @@ def loop(stdscr, config, unique_frames_dir):
         image_rgb = np.array(image)
         image_arr = (~np.all(image_rgb == 0, axis=-1)).astype(np.uint8)
 
-        if (image_rgb != last_frame).any():
+        if unique_frames_dir and (image_rgb != last_frame).any():
             last_frame = image_rgb
             image.save(f'{unique_frames_dir}/frame_{frame_idx}.png')
 
@@ -238,8 +242,13 @@ def loop(stdscr, config, unique_frames_dir):
 
                 #XXX: why shape (15, 8)
                 if char_image_mask.shape == (16, 8):
-                    char, (x,y) = numpy_array_to_char(char_image_mask, char_map)
-                    (r,g,b) = char_image_rgb[y,x]
+                    #XXX: special case (probably blinking cursor), hacky ... (looses 10 FPS?)
+                    if ((char_image_mask[:11] == player_ch[:11]).all()):
+                        char = '@'
+                        (r,g,b) = (255,255,255)
+                    else:
+                        char, (x,y) = numpy_array_to_char(char_image_mask, char_map_rev)
+                        (r,g,b) = char_image_rgb[y,x]
 
                     pair_i = color_map[(r,g,b)]
 
