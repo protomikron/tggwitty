@@ -223,11 +223,12 @@ def loop(stdscr, config, unique_frames_dir):
                 send_key_event(disp, root, keycode, False)
 
         raw_image = root.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff)
+        image = Image.frombytes('RGB', (width, height), raw_image.data, 'raw', 'BGRX')
 
         dirty = False
-        if raw_image != last_frame:
+        if image != last_frame:
             dirty = True
-            last_frame = raw_image
+            last_frame = image
 
         if dirty and unique_frames_dir:
             image.save(f'{unique_frames_dir}/frame_{frame_idx}.png')
@@ -237,7 +238,6 @@ def loop(stdscr, config, unique_frames_dir):
         if not dirty:
             continue
 
-        image = Image.frombytes('RGB', (width, height), raw_image.data, 'raw', 'BGRX')
         image_rgb = np.array(image)
         image_arr = (~np.all(image_rgb == 0, axis=-1)).astype(np.uint8)
 
