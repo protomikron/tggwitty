@@ -170,8 +170,9 @@ def loop(stdscr, config, unique_frames_dir):
     player_ch = char_map['@']
 
     frame_idx = 0
-    last_frame = np.zeros((config['window_size'], config['window_size'], 3), np.uint8)
+    last_frame = None
 
+    dirty = True
     while True:
         start_frame_time = dt.datetime.now()
 
@@ -222,15 +223,23 @@ def loop(stdscr, config, unique_frames_dir):
                 send_key_event(disp, root, keycode, False)
 
         raw_image = root.get_image(0, 0, width, height, X.ZPixmap, 0xffffffff)
-        image = Image.frombytes('RGB', (width, height), raw_image.data, 'raw', 'BGRX')
-        image_rgb = np.array(image)
-        image_arr = (~np.all(image_rgb == 0, axis=-1)).astype(np.uint8)
 
-        if unique_frames_dir and (image_rgb != last_frame).any():
-            last_frame = image_rgb
+        dirty = False
+        if raw_image != last_frame:
+            dirty = True
+            last_frame = raw_image
+
+        if dirty and unique_frames_dir:
             image.save(f'{unique_frames_dir}/frame_{frame_idx}.png')
 
         frame_idx += 1
+
+        if not dirty:
+            continue
+
+        image = Image.frombytes('RGB', (width, height), raw_image.data, 'raw', 'BGRX')
+        image_rgb = np.array(image)
+        image_arr = (~np.all(image_rgb == 0, axis=-1)).astype(np.uint8)
 
         for row in range(0, rows):
             for col in range(0, cols):
